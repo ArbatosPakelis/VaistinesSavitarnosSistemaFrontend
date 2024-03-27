@@ -6,19 +6,19 @@ function App() {
 
   // execute code on page load
   useEffect(() => {
-    fetch("/api").then(
-      response => response.json()
-    ).then(
-      data => {
-        setData(data)
-      }
-    )
-  }, [])
+    async function fetchData() 
+    {
+      const response = await fetch("/api");
+      const data = await response.json();
+      setData(data);
+    }
+    fetchData();
+  }, []);
 
   // display view
   return (
     <div>
-       {( typeof data === 'undefined' ? (
+       {( typeof data === 'undefined' || typeof data.data === 'undefined' || data.data.length === 0 ? (
         <p>Loading ...</p>
        ) :(
         <p>
