@@ -1,31 +1,30 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { Routes, Route } from 'react-router-dom';
+import Register from './pages/Register';
+import LoginPage from './pages/Login';
+import MainPage from './pages/MainPage';
 
 function App() {
-  const [data, setData] = useState([{}]);
 
-  // execute code on page load
-  useEffect(() => {
-    async function fetchData() 
-    {
-      const response = await fetch("/api");
-      const data = await response.json();
-      setData(data);
-    }
-    fetchData();
-  }, []);
-
-  // display view
   return (
-    <div>
-       {( typeof data === 'undefined' || typeof data.data === 'undefined' || data.data.length === 0 ? (
-        <p>Loading ...</p>
-       ) :(
-        <p>
-          {data.data[0].Message}
-        </p>
-       ))}
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<MainPage/>}/>
+        <Route path="/register" element={<Register/>}/>
+        <Route path="/login" element={<LoginPage/>}/>
+        {/* <Route path="/" element={<MainPage/>}/>
+        <Route path="/Login" element={<LoginPage/>}/>
+        <Route path="/Signup" element={<SignupPage/>}/>
+        <Route path="/Threads/:id" element={<ThreadList/>}/>
+        <Route path="/Comments/:id" element={<CommentSection/>}/>
+        <Route path="/Unauthorized" element={<Unauthorized/>}/>
+        <Route
+          path="/Users"
+          element={<RequireAuth allowedRoles={["regular", "admin"]}><UsersPage /></RequireAuth>}
+        />
+        <Route path="*" element={<ErrorPage/>}/> */}
+      </Routes>
+    </>
   )
 }
 
