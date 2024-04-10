@@ -3,7 +3,7 @@ import usePrivateApi from "../hooks/usePrivateApi.js";
 import useAuth from "../hooks/useAuth.js";
 import Header from "../components/header.jsx";
 
-export default function MainPage(req){
+export default function UnauthorizedPage(req){
     const { auth} = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
     const PrivateApi = usePrivateApi();
@@ -11,7 +11,7 @@ export default function MainPage(req){
     return (
         <>
             <Header/>
-            <h3>Welcome to the main page !</h3>
+            <h3>You tried to access something you're unauthorized for</h3>
         </>
     );
 }

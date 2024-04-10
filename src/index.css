@@ -16,6 +16,10 @@ body {
     background-color: #3b71ca;
 }
 
+h3{
+  color:white;
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -146,4 +150,84 @@ button {
     width: 300px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.header{
+  height: 60px;
+  width: 100%;
+  background-color: white;
+  color: #282828;
+  margin-bottom: 50px;
+}
+
+.head{
+  margin-top: 10px;
+  border-radius: 0px;
+  border:none;
+  float:right;
+  margin-right: 10px;
+  background-color: white;
+  color: #282828;
+  height: 45px;
+  width: 150px;
+}
+
+.headButton{
+  margin-left: 10px;
+  margin-top: 10px;
+  border-radius: 0px;
+  border:none;
+  background-color: white;
+  color: #282828;
+  height: 45px;
+  width: 150px;
+}
+
+.itemList{
+  display: inline-block;
+  min-width: 750px;
+  min-height: 300px;
+  padding:20px;
+  margin-left: 50px;
+}
+
+.price{
+  display: inline-block;
+  position:absolute;
+  top: 20px;
+  right:0;
+  min-width: 400px;
+  min-height: 300px;
+  border: solid 1px white;
+  padding:20px;
+  margin-right: 50px;
+  color:white;
+}
+
+.bottomMeniu{
+  position: absolute;
+  margin-left: 60px;
+  bottom: 30px;
+}
+
+.buttonControl{
+  border-radius: 0px;
+  border:none;
+  margin-left:10px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.ProductRow{
+  border: solid 1px white;
+  padding:20px;
+  color:white;
+  margin-bottom: 5px;
+  width:650px;
+}
+
+.whole{
+  min-width: 1200px;
+  min-height: 750px;
+  height: 100%;
 }

@@ -98,9 +98,9 @@ export default function Register(){
                     JSON.stringify({ username: username,
                                      password: password,
                                      email: email,
-                                     isDelete:false,
-                                     status:"regular",
-                                     ForceRelogin:false }),
+                                     status:"working",
+                                     ForceRelogin:false,
+                                     user_types_fk: 2 }),
                     {
                         headers: { 'Content-Type': 'application/json' },
                         withCredentials: true
