@@ -192,16 +192,22 @@ button {
 }
 
 .price{
-  display: inline-block;
+  display: flex;
   position:absolute;
   top: 20px;
   right:0;
   min-width: 400px;
-  min-height: 300px;
+  min-height: 100px;
   border: solid 1px white;
   padding:20px;
   margin-right: 50px;
   color:white;
+}
+
+.priceChild{
+  display: inline-block;
+  align-self: flex-end;
+  margin-right: 10px;
 }
 
 .bottomMeniu{
@@ -230,4 +236,54 @@ button {
   min-width: 1200px;
   min-height: 750px;
   height: 100%;
+}
+
+.incButtons{
+  border:none;
+  background-color: #3b71ca;
+  color:white;
+  margin-top: 0px!important;
+}
+
+.chosenButtons{
+  border:1px solid white;
+  background-color: #3b71ca;
+  color:white;
+  border-radius: 0;
+  height: 60px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+}
+
+.ProductRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.amountContainer,
+.priceContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.priceP{
+  height:46px;
+}
+
+.infoContainer {
+  width: 300px;
+}
+
+.amountContainer,
+.priceContainer {
+  width: 150px;
+  text-align: center;
+}
+
+.deficit{
+ width: 40px;
+ height: 40px;
+ font-size: 22px;
 }

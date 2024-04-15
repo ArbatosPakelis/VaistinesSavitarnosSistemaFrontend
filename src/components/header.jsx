@@ -48,11 +48,11 @@ export default function Header() {
       <>
         <button className="headButton">
           {/* using 'link' instead of 'a' to save your auth state going through the pages */}
-          <Link to="/orderList/1">Užsakymai</Link>
+          <Link to="/orderList">Užsakymai</Link>
         </button>
         <button className="headButton" style={{width:"250px"}}>
           {/* using 'link' instead of 'a' to save your auth state going through the pages */}
-          <Link to="/inventory/1">Trūkstamos prekės</Link>
+          <Link to="/inventory">Trūkstamos prekės</Link>
         </button>
       </>
       ) : (
@@ -62,7 +62,7 @@ export default function Header() {
       <>
         <button className="headButton">
           {/* using 'link' instead of 'a' to save your auth state going through the pages */}
-          <Link to="/productList/1">Vaistai</Link>
+          <Link to="/productList">Vaistai</Link>
         </button>
         <button className="headButton">
           {/* using 'link' instead of 'a' to save your auth state going through the pages */}

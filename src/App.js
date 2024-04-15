@@ -1,11 +1,10 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom';
-import Register from './pages/Register';
 import RequireAuth from './components/RequireAuth';
 // pages
-import LoginPage from './pages/Login';
-import MainPage from './pages/MainPage';
-import BasketPage from './pages/Basket';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import BasketPage from './pages/BasketPage';
 import ProductListPage from './pages/ProductListPage';
 import InventoryPage from './pages/InventoryPage';
 import OrderListPage from './pages/OrderListPage';
@@ -19,19 +18,19 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<MainPage/>}/>
-        <Route path="/register" element={<Register/>}/>
+        <Route path="/" element={<LoginPage/>}/>
+        <Route path="/register" element={<RegisterPage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
 
         <Route element={<RequireAuth allowedRoles={[1, 2]}/>}>
           <Route path="/basket" element={<BasketPage/>}/>
-          <Route path="/productList/:id" element={<ProductListPage/>}/>
+          <Route path="/productList" element={<ProductListPage/>}/>
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[2]}/>}>
-          <Route path="/inventory/:id" element={<InventoryPage/>}/>
-          <Route path="/orderList/:id" element={<OrderListPage/>}/>
+          <Route path="/inventory" element={<InventoryPage/>}/>
+          <Route path="/orderList" element={<OrderListPage/>}/>
           <Route path="/order/:id" element={<OrderPage/>}/>
         </Route>
 
