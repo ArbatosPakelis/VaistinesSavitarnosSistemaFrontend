@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import usePrivateApi from "../hooks/usePrivateApi.js";
 import useAuth from "../hooks/useAuth.js";
+import Header from "../components/header.jsx";
 
-export default function MainPage(req){
+export default function ErrorPage(req){
     const { auth} = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
     const PrivateApi = usePrivateApi();
 
     return (
         <>
-            <h3>Welcome to the main page !</h3>
-            { console.log(auth) }
+            <Header/>
+            <h3>The page you're trying to access doesn't exist</h3>
         </>
     );
 }

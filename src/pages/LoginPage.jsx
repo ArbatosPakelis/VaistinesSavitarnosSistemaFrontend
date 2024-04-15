@@ -14,7 +14,8 @@ export default function LoginPage(){
     const {auth, setAuth} = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
+    const from1 = location.state?.from?.pathname || "/basket";
+    const from2 = location.state?.from?.pathname || "/accounts";
 
     // when page loads it'll select username field as if you clicked it
     useEffect(() => {
@@ -45,12 +46,21 @@ export default function LoginPage(){
             const refreshToken = response?.data?.refreshToken;
             const role = response?.data?.role;
             const id = response?.data?.id;
+            const pharmacy = response?.data?.pharmacy;
+            const basketId = response?.data?.basketId;
             // set global variables
-            setAuth({ id, username, role, accessToken, refreshToken});
+            setAuth({ id, username, role, pharmacy, accessToken, refreshToken, basketId});
             // remove input data
             setUsername('');
             setPassword('');
-            navigate(from, {replace: true})
+            if(role == 3)
+            {
+                navigate(from2, {replace: true})
+            }
+            else if(role == 1 || role == 2)
+            {
+                navigate(from1, {replace: true})
+            }
         } catch (err) {
             if (!err?.response) {
                 console.log(err);

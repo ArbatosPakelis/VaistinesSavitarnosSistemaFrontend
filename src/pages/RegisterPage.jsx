@@ -8,7 +8,7 @@ const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^[a-zA-Z]{1,23}@[a-zA-Z0-9.-]{3,23}\.[a-zA-Z]{2,4}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-export default function Register(){
+export default function RegisterPage(){
     const usernameRef = useRef();
     const errorRef = useRef();
     const location = useLocation();
@@ -98,9 +98,9 @@ export default function Register(){
                     JSON.stringify({ username: username,
                                      password: password,
                                      email: email,
-                                     isDelete:false,
-                                     status:"regular",
-                                     ForceRelogin:false }),
+                                     status:"working",
+                                     ForceRelogin:false,
+                                     user_types_fk: 2 }),
                     {
                         headers: { 'Content-Type': 'application/json' },
                         withCredentials: true
