@@ -48,6 +48,7 @@ export default function LoginPage(){
             const id = response?.data?.id;
             const pharmacy = response?.data?.pharmacy;
             const basketId = response?.data?.basketId;
+            console.log(response?.data);
             // set global variables
             setAuth({ id, username, role, pharmacy, accessToken, refreshToken, basketId});
             // remove input data
@@ -70,7 +71,8 @@ export default function LoginPage(){
             } else if (err.response?.status === 401) {
                 setErrorMessage('Wrong password or unauthorized');
             } else {
-                setErrorMessage('Login Failed')
+                console.log(err);
+                //setErrorMessage('Login Failed')
             }
             errorRef.current.focus();
         }
@@ -79,10 +81,10 @@ export default function LoginPage(){
     return (
         <section>
             <p ref={errorRef} className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
-            <h1>Login</h1>
+            <h1>Prisijungimas</h1>
             <form onSubmit={handleSubmit}>
                     <label htmlFor="username">
-                        Username:
+                        Naudotojo vardas:
                     </label>
                     <input
                         type="text"
@@ -95,7 +97,7 @@ export default function LoginPage(){
                     />
 
                     <label htmlFor="password">
-                        Password:
+                        Slaptažodis:
                     </label>
                     <input
                         type="password"
@@ -104,12 +106,12 @@ export default function LoginPage(){
                         value={password}
                         required
                     />
-                    <button>Login</button>
+                    <button>Prisijungti</button>
                 </form>
                 <p> 
-                    New user? <br/>
+                    Nesate užsiregistravęs? <br/>
                     <span className="line">
-                        <a href="/register">Register</a>
+                        <a href="/register">Registruotis</a>
                     </span>
                 </p>
         </section>

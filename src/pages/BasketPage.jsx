@@ -35,7 +35,7 @@ export default function BasketPage(req){
             }  else {
                 setErrorMessage('Failled loading your order')
             }
-            errorRef.current.focus();
+            //errorRef.current.focus();
         }
     }
 
@@ -53,47 +53,48 @@ export default function BasketPage(req){
         }
     }, []);
 
+
   return (
-        <>
-        <Header />
-        <h1 style={{color:"white"}}>Krepšelis</h1>
-        <div className="whole" ref={wholeRef} style={{ position: "relative" }}>
-            <div style={{ flexDirection: 'row', minHeight: 400 }}>
-            <div className="itemList" ref={itemListRef}>
-                {data && data.order_products && data.order_products.length > 0 ? (
-                    data.order_products.map((product, index) => (
-                        <div key={index} style={{ display: "flex" }}>
-                            <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1}/>
-                        </div>
-                    ))
-                ) : (
-                    <p>nebuvo rasta jokių prekių</p>
-                )}
-            </div>
-            <div className="price" style={{verticalAlign:"sub"}}>
-                <p className="priceChild" >Kaina:</p>
-                <p className="priceChild">{data && data.order.price ? data.order.price : 0}€</p>
-            </div>
-            </div>
-            <div className="bottomMeniu">
-                { auth.role === 2 ? (
+        <div style={{width:"100%"}}>
+            <Header />
+            <h1 style={{color:"white"}}>Krepšelis</h1>
+            <div className="whole" ref={wholeRef} style={{ position: "relative" }}>
+                <div style={{ flexDirection: 'row', minHeight: 400 }}>
+                <div className="itemList" ref={itemListRef}>
+                    {data && data.order_products && data.order_products.length > 0 ? (
+                        data.order_products.map((product, index) => (
+                            <div key={index} style={{ display: "flex" }}>
+                                <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1}/>
+                            </div>
+                        ))
+                    ) : (
+                        <p>nebuvo rasta jokių prekių</p>
+                    )}
+                </div>
+                <div className="price" style={{verticalAlign:"sub"}}>
+                    <p className="priceChild" >Kaina:</p>
+                    <p className="priceChild">{data ? data.order.price : 0}€</p>
+                </div>
+                </div>
+                <div className="bottomMeniu">
+                    { auth.role === 2 ? (
+                        <button className="buttonControl">
+                            Avarinis
+                        </button>
+                    ): (
+                        <></>
+                    )}
                     <button className="buttonControl">
-                        Avarinis
+                        Apmokėti
                     </button>
-                ): (
-                    <></>
-                )}
-                <button className="buttonControl">
-                    Apmokėti
-                </button>
-                <button className="buttonControl">
-                    Nuolaidų kortelė
-                </button>
-                <button className="buttonControl">
-                    Atšaukti
-                </button>
+                    <button className="buttonControl">
+                        Nuolaidų kortelė
+                    </button>
+                    <button className="buttonControl">
+                        Atšaukti
+                    </button>
+                </div>
             </div>
         </div>
-        </>
     );
 }

@@ -154,7 +154,7 @@ button {
 
 .header{
   height: 60px;
-  width: 100%;
+  min-width: 100%;
   background-color: white;
   color: #282828;
   margin-bottom: 50px;
@@ -192,16 +192,15 @@ button {
 }
 
 .price{
-  display: flex;
-  position:absolute;
-  top: 20px;
-  right:0;
+  display: inline-block;
+  vertical-align: top !important;
   min-width: 400px;
   min-height: 100px;
   border: solid 1px white;
   padding:20px;
-  margin-right: 50px;
+  margin-top: 20px;
   color:white;
+  margin-left: 70px;
 }
 
 .priceChild{
@@ -229,11 +228,12 @@ button {
   padding:20px;
   color:white;
   margin-bottom: 5px;
-  width:650px;
+  width:950px;
+  display: flex;
+  flex-direction: row;
 }
 
 .whole{
-  min-width: 1200px;
   min-height: 750px;
   height: 100%;
 }
@@ -256,16 +256,13 @@ button {
   margin-left: 10px;
 }
 
-.ProductRow {
-  display: flex;
-  flex-direction: row;
-}
-
 .amountContainer,
 .priceContainer {
   flex: 1;
   display: flex;
   justify-content: center;
+  width: 150px;
+  text-align: center;
 }
 
 .priceP{
@@ -276,14 +273,97 @@ button {
   width: 300px;
 }
 
-.amountContainer,
-.priceContainer {
-  width: 150px;
-  text-align: center;
-}
-
 .deficit{
  width: 40px;
  height: 40px;
  font-size: 22px;
+}
+
+.orderCol {
+  height: 90px;
+  margin: 5px;
+  padding: 10px;
+}
+
+.OrderRow {
+  border: solid 1px white;
+  padding: 10px;
+  color: white;
+  margin-bottom: 5px;
+  width: 950px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.OrderRow:hover {
+  background-color: #a1c1e2;
+}
+
+.orderContainer {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  text-align: center;
+}
+
+.infoPlate {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin-left: 75px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.label {
+  grid-column: 1;
+  margin-right: 20px;
+}
+
+.data {
+  grid-column: 2;
+}
+
+.UserRow {
+  border: solid 1px white;
+  padding: 20px;
+  color: white;
+  margin-bottom: 20px;
+  width: 1800px;
+  display: flex;
+  align-items: stretch; /* Stretch items vertically */
+  box-sizing: border-box; /* Include padding and border in width */
+  margin-left: 70px;
+}
+
+.UserCol {
+  flex: 1;
+  padding: 10px; /* Adjust padding */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; /* Stack label and data vertically */
+  justify-content: space-between; /* Space items evenly vertically */
+}
+
+p {
+  margin: 0;
+  margin-bottom: 10px; /* Add spacing between paragraphs */
+}
+
+.inp {
+  width: 100%; /* Full width of the column */
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+b {
+  display: block; /* Make <b> element a block-level element */
+  margin-bottom: 5px; /* Add spacing between label and data */
+}
+
+p span {
+  display: block; /* Make <span> element a block-level element */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflow text */
+  white-space: nowrap; /* Prevent wrapping */
 }

@@ -43,7 +43,7 @@ export default function Header() {
 
 
   return (
-    <div className="header" style={{minWidth:900}}>
+    <div className="header" style={{minWidth:1910}}>
       {auth?.role === 2 ? ( 
       <>
         <button className="headButton">
