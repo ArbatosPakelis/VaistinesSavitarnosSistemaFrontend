@@ -29,9 +29,9 @@ export default function OrderListPage(req){
             } else if (err.response?.status === 404) {
                 setErrorMessage('Order not found');
             }  else {
-                setErrorMessage('Failled loading your order')
+                setErrorMessage('Failled loading your orders')
             }
-            // errorRef.current.focus();
+            errorRef.current.focus();
         }
     }
 

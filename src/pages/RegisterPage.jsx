@@ -132,19 +132,19 @@ export default function RegisterPage(){
             <>
                 {success ? (
                 <section>
-                    <h1>Success</h1>
+                    <h1>operacija sėkminga</h1>
                     <p>
-                        <a href="/login">Login</a>
+                        <a href="/login">Prisijungimas</a>
                     </p>
                 </section>
                 ) : (
                 <section>
                     <p ref={errorRef} className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
-                    <h1>Register</h1>
+                    <h1>Registruotis</h1>
                     <hr></hr>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username">
-                            Username:
+                            Naudotojo vardas:
                             <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validName || !username ? "hide" : "invalid"} />
                         </label>
@@ -163,13 +163,13 @@ export default function RegisterPage(){
                         />
                         <p id="uidnote" className={userFocus && username && !validName ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            4 to 24 characters.<br />
-                            Must begin with a letter.<br />
-                            Letters, numbers, underscores, hyphens allowed.
+                            4 iki 24 simbolių.<br />
+                            Privalo prasidėti raide.<br />
+                            Raidės, numeriai, brukšniai yra leidžiami.
                         </p>
     
                         <label htmlFor="email">
-                            Email:
+                            Elektroninis paštas:
                             <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
                         </label>
@@ -187,10 +187,10 @@ export default function RegisterPage(){
                         />
                         <p id="emlnote" className={EmailFocus && email && !validEmail ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            8 to 52 characters.<br />
-                            Must begin with a letter.<br />
-                            Must contain @ simbol.<br />
-                            Must contain . simbol.
+                            8 iki 52 simbolių.<br />
+                            Privalo prasidėti raide.<br />
+                            Privalo turėti @ simbolį.<br />
+                            Privalo turėti . simbolį.
                         </p>
     
                         <label htmlFor="password">
@@ -211,9 +211,9 @@ export default function RegisterPage(){
                         />
                         <p id="passwordnote" className={passwordFocus && password && !validPassword ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            8 to 24 characters.<br />
-                            Must include uppercase and lowercase letters, a number and a special character.<br />
-                            Allowed special characters: 
+                            8 iki 24  simbolių.<br />
+                            Privalo turėti didžiųjų ir mažųjų raidžių, skaičių ir specialų simbolį.<br />
+                            Galimi specialūs simboliai: 
                             <span aria-label="exclamation mark">!</span>
                             <span aria-label="at symbol">@</span>
                             <span aria-label="hashtag">#</span>
@@ -222,7 +222,7 @@ export default function RegisterPage(){
                         </p>
 
                         <label htmlFor="confirmPassword">
-                            Confirm password:
+                            Pakartoti slaptažodį:
                             <FontAwesomeIcon icon={faCheck} className={validConfirmPassword && confirmPassword ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validConfirmPassword || !confirmPassword ? "hide" : "invalid"} />
                         </label>
@@ -239,15 +239,15 @@ export default function RegisterPage(){
                         />
                         <p id="confirmPasswordnote" className={confirmPasswordFocus && confirmPassword && !validConfirmPassword ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            Must be the same as password
+                            Slaptažodžiai turi sutapti
                         </p>
     
                         <button disabled={!validName || !validPassword || !validEmail? true : false}>Register</button>
                     </form>
                     <p>
-                        Already registered?<br />
+                        Jau užsiregistrave?<br />
                         <span className="line">
-                            <a href="/Login">Login</a>
+                            <a href="/Login">Prisijungti</a>
                         </span>
                     </p>
                 </section>
