@@ -66,7 +66,7 @@ export default function OrderListPage(req){
                                 </div>
                             ))
                         ) : (
-                            <p>nebuvo rasta užsakymų</p>
+                            <p style={{color:"white"}}>nebuvo rasta užsakymų</p>
                         )}
                     </div>
                 </div>

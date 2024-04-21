@@ -4,9 +4,11 @@ import usePrivateApi from "../hooks/usePrivateApi.js";
 import useAuth from "../hooks/useAuth.js";
 import Header from "../components/header.jsx";
 import ProductRow from "../components/ProductRow.jsx";
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export default function BasketPage(req){
-    const { auth} = useAuth();
+    const { auth, setAuth} = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
     const PrivateApi = usePrivateApi();
     const [itemListHeight, setItemListHeight] = useState(0);
@@ -14,6 +16,11 @@ export default function BasketPage(req){
     const itemListRef = useRef(null);
     const errorRef = useRef();
     const [data, setData] = useState("");
+    const [payment, setPayment] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    let success = params.get('success');
 
     async function fetchingOrder() {
         try {
@@ -39,6 +46,35 @@ export default function BasketPage(req){
         }
     }
 
+    async function completeOrder() {
+        if(!auth)
+        {
+            setAuth(auth);
+        }
+        
+        try {
+            // http request
+            const response = await PrivateApi.post(`/api/v1/orders/paymentCompletion/${auth.basketId}`,
+                {
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.accessToken}`,
+                    },
+                }
+            );
+            console.log(response.data);
+        } catch (err) {
+            if (!err?.response) {
+                setErrorMessage('No Server Response');
+            } else if (err.response?.status === 404) {
+                setErrorMessage('Order not found');
+            }  else {
+                setErrorMessage('Failled loading your order')
+            }
+            //errorRef.current.focus();
+        }
+    }
+
     useEffect(() => {
         // maintain correct size of item list as the list grows
         if (itemListRef.current && wholeRef.current) {
@@ -51,7 +87,41 @@ export default function BasketPage(req){
         {
             fetchingOrder();
         }
+
+        if(success != undefined && Boolean(success) == true)
+        {
+            completeOrder();
+        }
+
     }, []);
+
+    async function handleTap() {
+        try{
+            const response = await PrivateApi.post(
+                `/api/v1/orders/payment/${auth.basketId}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${auth.accessToken}`,
+                    },
+                }
+            );
+            if (response?.status === 200) {
+                window.localStorage.setItem("auth", JSON.stringify(auth))
+                window.location = response.data.session;
+            }
+        } catch (err) {
+          if (!err?.response) {
+            setErrorMessage('No Server Response');
+          } else if (err.response?.status === 403) {
+            setErrorMessage('Forbidden');
+          } else if (err.response?.status === 401) {
+            setErrorMessage('Unauthorized');
+          } else {
+            setErrorMessage('Comment creation Failed');
+          }
+        }
+    }
 
 
   return (
@@ -64,11 +134,11 @@ export default function BasketPage(req){
                     {data && data.order_products && data.order_products.length > 0 ? (
                         data.order_products.map((product, index) => (
                             <div key={index} style={{ display: "flex" }}>
-                                <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1}/>
+                                <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1} reloading={fetchingOrder}/>
                             </div>
                         ))
                     ) : (
-                        <p>nebuvo rasta jokių prekių</p>
+                        <p style={{color:"white", fontSize:22, border:"1px solid white", height:100, padding:10}}>nebuvo rasta jokių prekių</p>
                     )}
                 </div>
                 <div className="price" style={{verticalAlign:"sub"}}>
@@ -84,7 +154,7 @@ export default function BasketPage(req){
                     ): (
                         <></>
                     )}
-                    <button className="buttonControl">
+                    <button className="buttonControl" onClick={handleTap}>
                         Apmokėti
                     </button>
                     <button className="buttonControl">
@@ -94,6 +164,11 @@ export default function BasketPage(req){
                         Atšaukti
                     </button>
                 </div>
+                {/* { payment == true ? (
+                    <PaymentForm/>
+                ) : (
+                    <></>
+                )} */}
             </div>
         </div>
     );

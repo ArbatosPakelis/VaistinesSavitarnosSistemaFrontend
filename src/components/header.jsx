@@ -39,6 +39,7 @@ export default function Header() {
         setErrorMessage('Logout Failed');
       }
     }
+    localStorage.removeItem('auth');
   };
 
 
