@@ -6,6 +6,7 @@ const useRefresh = () => {
     const { auth, setAuth} = useAuth();
 
     const refresh = async() => {
+
         const response = await defaultApi.post("/api/v1/users/tokens",
             JSON.stringify({}),
             {

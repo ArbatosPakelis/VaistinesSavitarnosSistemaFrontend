@@ -47,7 +47,11 @@ export default function OrderPage(req){
                 result = users[k];
             }
         }
-        return result.username;
+        if(result != undefined)
+        {
+            return result.username;
+        }
+        return undefined;
     }
     
     useEffect(() => {
@@ -90,11 +94,11 @@ export default function OrderPage(req){
                         {data && data.order_products && data.order_products.length > 0 ? (
                             data.order_products.map((product, index) => (
                                 <div key={index} style={{ display: "flex" }}>
-                                    <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1}/>
+                                    <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1} reloading={fetchingOrder}/>
                                 </div>
                             ))
                         ) : (
-                            <p>nebuvo rasta jokių prekių</p>
+                            <p style={{color:"white"}}>nebuvo rasta jokių prekių</p>
                         )}
                     </div>
                 </div>

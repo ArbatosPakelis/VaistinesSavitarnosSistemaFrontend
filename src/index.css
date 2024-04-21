@@ -197,7 +197,7 @@ button {
   min-width: 400px;
   min-height: 100px;
   border: solid 1px white;
-  padding:20px;
+  padding:10px;
   margin-top: 20px;
   color:white;
   margin-left: 70px;
@@ -207,6 +207,7 @@ button {
   display: inline-block;
   align-self: flex-end;
   margin-right: 10px;
+  font-size: 22px;
 }
 
 .bottomMeniu{

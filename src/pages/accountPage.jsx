@@ -96,7 +96,7 @@ export default function AccountPage(req){
                                 </div>
                             ))
                         ) : (
-                            <p>nebuvo rasta jokių prekių</p>
+                            <p style={{color:"white"}}>nebuvo rasta jokių prekių</p>
                         )}
                     </div>
                 </div>

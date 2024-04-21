@@ -46,7 +46,7 @@ export default function InventoryPage(req){
         <>
             <Header />
             <div>
-                <div>
+                <div style={{marginLeft:60}}>
                     <button className="chosenButtons">
                         užsakyti
                     </button>
@@ -66,7 +66,7 @@ export default function InventoryPage(req){
                                 </div>
                             ))
                         ) : (
-                            <p>nebuvo rasta jokių prekių</p>
+                            <p style={{color:"white"}}>nebuvo rasta jokių prekių</p>
                         )}
                     </div>
                 </div>

@@ -46,11 +46,11 @@ export default function ProductListPage(req){
         <>
             <Header />
             <div>
-                <div>
+                <div style={{marginLeft:60}}>
                     <input style={{minWidth:600, minHeight:60, marginLeft:10, fontSize:22}}></input>
                     <button className="chosenButtons" style={{marginTop:0, marginBottom:0, marginLeft:20}}>Ieškoti</button>
                 </div>
-                <div>
+                <div style={{marginLeft:60}}>
                     { auth.role === 2 ? (
                         <button className="chosenButtons">
                             sulyginti
@@ -73,11 +73,11 @@ export default function ProductListPage(req){
                         {data && data.remaining_goods && data.remaining_goods.length > 0 ? (
                             data.remaining_goods.map((product, index) => (
                                 <div key={index} style={{ display: "flex" }}>
-                                    <ProductRow name={"example"+index} card={data.product_cards[index]} product={product}  mode={2}/>
+                                    <ProductRow name={"example"+index} card={data.product_cards[index]} product={product}  mode={2}  reloading={fetchingProducts}/>
                                 </div>
                             ))
                         ) : (
-                            <p>nebuvo rasta jokių prekių</p>
+                            <p style={{color:"white"}}>nebuvo rasta jokių prekių</p>
                         )}
                     </div>
                 </div>
