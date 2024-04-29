@@ -48,9 +48,10 @@ export default function LoginPage(){
             const id = response?.data?.id;
             const pharmacy = response?.data?.pharmacy;
             const basketId = response?.data?.basketId;
-            console.log(response?.data);
+            const SelfCode = response?.data?.SelfCode;
+            const OtherCode = response?.data?.OtherCode;
             // set global variables
-            setAuth({ id, username, role, pharmacy, accessToken, refreshToken, basketId});
+            setAuth({ id, username, role, pharmacy, accessToken, refreshToken, basketId, SelfCode, OtherCode});
             // remove input data
             setUsername('');
             setPassword('');
@@ -64,15 +65,13 @@ export default function LoginPage(){
             }
         } catch (err) {
             if (!err?.response) {
-                console.log(err);
                 setErrorMessage('No Server Response');
             } else if (err.response?.status === 404) {
                 setErrorMessage('User doesn\'t exist');
             } else if (err.response?.status === 401) {
                 setErrorMessage('Wrong password or unauthorized');
             } else {
-                console.log(err);
-                //setErrorMessage('Login Failed')
+                setErrorMessage('Login Failed')
             }
             errorRef.current.focus();
         }

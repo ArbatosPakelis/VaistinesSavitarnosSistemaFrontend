@@ -17,12 +17,24 @@ const useRefresh = () => {
                 withCredentials: true,
             }
         );
-        setAuth(prev =>{
-            return {...prev,
-                    accessToken: response.data.accessToken,
-                    refreshToken: response.data.refreshToken,
-                }
-        })
+        
+        const storedSessionData = localStorage.getItem('auth');
+        let jsonData = JSON.parse(storedSessionData);
+
+        if (jsonData) {
+            jsonData.accessToken = response.data.accessToken;
+            jsonData.refreshToken = response.data.refreshToken;
+            localStorage.removeItem('auth'); 
+            window.localStorage.setItem("auth", JSON.stringify(jsonData));
+        }
+        else{
+            setAuth(prev =>{
+                return {...prev,
+                        accessToken: response.data.accessToken,
+                        refreshToken: response.data.refreshToken,
+                    }
+            })
+        }
         return response.data.accessToken;
     }
     return refresh;

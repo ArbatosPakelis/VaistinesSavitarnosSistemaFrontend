@@ -9,6 +9,7 @@ export default function OrderPage(req){
     const {id} = useParams();
     const { auth} = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const PrivateApi = usePrivateApi();
     const [data, setData] = useState("");
     const errorRef = useRef();
@@ -31,9 +32,9 @@ export default function OrderPage(req){
             if (!err?.response) {
                 setErrorMessage('No Server Response');
             } else if (err.response?.status === 404) {
-                setErrorMessage('Order not found');
+                setErrorMessage('Užsakymas nebuvo rastas');
             }  else {
-                setErrorMessage('Failled loading your order')
+                setErrorMessage('Nepavyko gauti užsakymo')
             }
             //errorRef.current.focus();
         }
@@ -66,9 +67,37 @@ export default function OrderPage(req){
         setDateTime2(new Date(data.order?.updatedAt))
     }, [data]);
 
+    async function updateOrder(event) {
+        try {
+            const response = await PrivateApi.put(`/api/v1/orders/updateOrder/${data.order.id}/${event.target.value}`,
+                {
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.accessToken}`,
+                    },
+                }
+                );
+            console.log(response.data);
+            fetchingOrder();
+            setErrorMessage("");
+            setSuccessMessage('Užsakymas buvo atnaujintas');
+        } catch (err) {
+            setSuccessMessage("");
+            if (!err?.response) {
+                setErrorMessage('No Server Response');
+            } else if (err.response?.status === 404) {
+                setErrorMessage('Užsakymas nebuvo rastas');
+            }  else {
+                setErrorMessage('Nepavyko atlikti užsakymo atnaujinimo operacijos')
+            }
+        }
+    }
+
     return (
         <>
             <Header/>
+            <p className={successMessage ? "successMessage" : "offscreen"} aria-live="assertive">{successMessage}</p>
+            <p className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
             <div className="whole" style={{ position: "relative" }}>
                 <h1 style={{color:"white"}}>
                     {data ? `užsakymas ${data.order.id}` : "ieškoma..." }
@@ -89,16 +118,36 @@ export default function OrderPage(req){
                     <div className="label">Paskutinio keitimo data:</div>
                     <div className="data">{dateTime2 ? `${dateTime2.getFullYear()}-${dateTime2.getMonth() + 1}-${dateTime2.getDate()} ${dateTime2.toLocaleTimeString()}` : "ieškoma..."}</div>
                 </div>
+                { data ? (
+                    <div>
+                        <p style={{color:"white", marginLeft:70, display:"inline-block"}} >Pakeisti užsakymo būseną</p>
+                        <select value={data.order.state} onChange={updateOrder}>
+                            <option value="Naujas">Naujas</option>
+                            <option value="Atšauktas">Atšauktas</option>
+                            <option value="Įvykdytas">Įvykdytas</option>
+                            <option value="Patvirtintas">Patvirtintas</option>
+                        </select>
+                    </div>
+                ) :(
+                    <></>
+                )}
+
                 <div style={{ flexDirection: 'row', minHeight: 400 }}>
                     <div className="itemList">
-                        {data && data.order_products && data.order_products.length > 0 ? (
-                            data.order_products.map((product, index) => (
-                                <div key={index} style={{ display: "flex" }}>
-                                    <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1} reloading={fetchingOrder}/>
-                                </div>
-                            ))
+                        {data && data.order.state !== "Atšauktas" ? (
+                            <>
+                                {data && data.order_products && data.order_products.length > 0 ? (
+                                    data.order_products.map((product, index) => (
+                                        <div key={index} style={{ display: "flex" }}>
+                                            <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1} reloading={fetchingOrder} state={data.order.state}/>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p style={{color:"white"}}>nebuvo rasta jokių prekių</p>
+                                )}
+                            </>
                         ) : (
-                            <p style={{color:"white"}}>nebuvo rasta jokių prekių</p>
+                            <></>
                         )}
                     </div>
                 </div>

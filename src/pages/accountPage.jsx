@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import defaultApi from "../apis/defaultApi.js";
 import usePrivateApi from "../hooks/usePrivateApi.js";
 import useAuth from "../hooks/useAuth.js";
 import Header from "../components/header.jsx";
@@ -8,6 +7,7 @@ import UserRow from "../components/UserRow.js";
 export default function AccountPage(req){
     const { auth} = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const PrivateApi = usePrivateApi();
     const errorRef = useRef();
     const [data, setData] = useState("");
@@ -28,9 +28,9 @@ export default function AccountPage(req){
             if (!err?.response) {
                 setErrorMessage('No Server Response');
             } else if (err.response?.status === 404) {
-                setErrorMessage('Order not found');
+                setErrorMessage('Paskiros nebuvo rastos');
             }  else {
-                setErrorMessage('Failled loading your order')
+                setErrorMessage('Nepavyko atlikti paskirų paieškos')
             }
             //errorRef.current.focus();
         }
@@ -65,7 +65,7 @@ export default function AccountPage(req){
         }
         if(result)
         {
-            return `${result.country}; ${result.city}; ${result.street}`;
+            return result.street;
         }
         return `loading...`;
     }
@@ -77,14 +77,12 @@ export default function AccountPage(req){
         }
     }, []);
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
-
 
   return (
         <div style={{width:"100%"}}>
             <Header />
+            <p className={successMessage ? "successMessage" : "offscreen"} aria-live="assertive">{successMessage}</p>
+            <p className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
             <h1 style={{color:"white"}}>Paskirų sąrašąas</h1>
             <div className="whole" style={{ position: "relative" }}>
                 <div style={{ flexDirection: 'row', minHeight: 400 }}>
@@ -92,7 +90,7 @@ export default function AccountPage(req){
                         {data && data.users && data.users.length > 0 ? (
                             data.users.map((user, index) => (
                                 <div key={index} className="userRowContainer">
-                                    <UserRow name={"example"+index} user={user} type={findType(data.types, user.user_types_fk)} adress={findAdress(data.adresses, user.adresses_fk)}/>
+                                    <UserRow name={"example"+index} user={user} type={user.user_types_fk} adress={user.adresses_fk}  setS={setSuccessMessage} setE={setErrorMessage} reloading={fetchingAccounts}/>
                                 </div>
                             ))
                         ) : (

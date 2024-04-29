@@ -7,6 +7,7 @@ import OrderRow from "../components/orderRow.jsx";
 export default function OrderListPage(req){
     const { auth} = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const PrivateApi = usePrivateApi();
     const [data, setData] = useState("");
     const errorRef = useRef();
@@ -31,7 +32,6 @@ export default function OrderListPage(req){
             }  else {
                 setErrorMessage('Failled loading your orders')
             }
-            errorRef.current.focus();
         }
     }
 
@@ -43,6 +43,8 @@ export default function OrderListPage(req){
                 result = users[k];
             }
         }
+        console.log(users);
+        console.log(fk);
         return result;
     }
 
@@ -56,6 +58,8 @@ export default function OrderListPage(req){
     return (
         <>
             <Header/>
+            <p className={successMessage ? "successMessage" : "offscreen"} aria-live="assertive">{successMessage}</p>
+            <p className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
             <div className="whole" style={{ position: "relative" }}>
                 <div style={{ flexDirection: 'row', minHeight: 400 }}>
                     <div className="itemList">
