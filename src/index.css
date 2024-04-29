@@ -152,6 +152,18 @@ button {
     margin-right: auto;
 }
 
+.successMessage {
+  background-color: white;
+  color: green;
+  border: solid green;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .header{
   height: 60px;
   min-width: 100%;
@@ -332,39 +344,80 @@ button {
   margin-bottom: 20px;
   width: 1800px;
   display: flex;
-  align-items: stretch; /* Stretch items vertically */
-  box-sizing: border-box; /* Include padding and border in width */
+  align-items: stretch;
+  box-sizing: border-box;
   margin-left: 70px;
 }
 
 .UserCol {
   flex: 1;
-  padding: 10px; /* Adjust padding */
+  padding: 10px;
   box-sizing: border-box;
   display: flex;
-  flex-direction: column; /* Stack label and data vertically */
-  justify-content: space-between; /* Space items evenly vertically */
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 p {
   margin: 0;
-  margin-bottom: 10px; /* Add spacing between paragraphs */
+  margin-bottom: 10px;
 }
 
 .inp {
-  width: 100%; /* Full width of the column */
+  width: 100%;
   padding: 8px;
   box-sizing: border-box;
 }
 
 b {
-  display: block; /* Make <b> element a block-level element */
-  margin-bottom: 5px; /* Add spacing between label and data */
+  display: block;
+  margin-bottom: 5px;
 }
 
 p span {
-  display: block; /* Make <span> element a block-level element */
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Add ellipsis for overflow text */
-  white-space: nowrap; /* Prevent wrapping */
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+select{
+  color:white;
+  background-color: #3b71ca;
+  margin-left: 10px;
+  border: solid 1px white;
+  display: inline-block;
+}
+
+select:hover{
+  background-color: #a1c1e2;
+}
+
+.blueButton{
+  color:#3b71ca;
+  background-color: white;
+  border-radius: 0;
+  border:none;
+}
+
+.ProductRowWarning{
+  border: solid 1px white;
+  padding:20px;
+  color:white;
+  margin-bottom: 5px;
+  width:950px;
+  display: flex;
+  flex-direction: row;
+  background-color: orange;
+}
+
+.ProductRowExpired{
+  border: solid 1px white;
+  padding:20px;
+  color:white;
+  margin-bottom: 5px;
+  width:950px;
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(255, 0, 0);
 }
