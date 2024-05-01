@@ -1,7 +1,7 @@
 {
   "name": "vaistines-savitarnos-sistema-frontend",
   "version": "0.1.0",
-  "proxy": "http://localhost:5000",
+  "proxy": "https://auto-pharma-backend-ce309b93007d.herokuapp.com",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
