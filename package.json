@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "proxy": "https://auto-pharma-backend-ce309b93007d.herokuapp.com",
   "private": true,
+  "engines": {
+    "node": "20.12.1"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
