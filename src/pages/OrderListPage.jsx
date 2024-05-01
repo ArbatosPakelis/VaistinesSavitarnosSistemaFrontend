@@ -43,8 +43,6 @@ export default function OrderListPage(req){
                 result = users[k];
             }
         }
-        console.log(users);
-        console.log(fk);
         return result;
     }
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:5000"
+const BASE_URL = "https://auto-pharma-backend-ce309b93007d.herokuapp.com"
 
 export default axios.create({
     baseURL: BASE_URL

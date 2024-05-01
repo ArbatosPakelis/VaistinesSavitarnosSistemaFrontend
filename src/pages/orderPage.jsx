@@ -77,7 +77,6 @@ export default function OrderPage(req){
                     },
                 }
                 );
-            console.log(response.data);
             fetchingOrder();
             setErrorMessage("");
             setSuccessMessage('Užsakymas buvo atnaujintas');

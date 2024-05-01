@@ -98,7 +98,6 @@ export default function UserRow(req){
                     req.setS("");
                     
                 }
-                console.log(response.data);
             } catch (err) {
                 req.setS("");
                 if (!err?.response) {

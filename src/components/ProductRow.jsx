@@ -99,7 +99,6 @@ export default function ProductRow(req){
                     },
                 }
             );
-            console.log("success:" + response);
             if (response?.status === 200) {
                 req.reloading();
             }
@@ -113,7 +112,6 @@ export default function ProductRow(req){
           } else {
             setErrorMessage('Comment creation Failed');
           }
-          console.log("error:" + err);
         }
     }
 
@@ -128,7 +126,6 @@ export default function ProductRow(req){
                     },
                 }
             );
-            console.log(response.data);
             if (response?.status === 200) {
                 req.reloading();
             }
@@ -142,7 +139,6 @@ export default function ProductRow(req){
           } else {
             setErrorMessage('Comment creation Failed');
           }
-          console.log("error:" + err);
         }
     }
 

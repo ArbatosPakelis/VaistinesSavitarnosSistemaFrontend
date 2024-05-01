@@ -13,7 +13,6 @@ const RequireAuth = ({ allowedRoles }) => {
   }
 
   if (!allowedRoles.includes(auth.role)) {
-    console.log(auth);
     return <Navigate to="/unauthorized" state={{ from: location }} replace />;
   }
 
