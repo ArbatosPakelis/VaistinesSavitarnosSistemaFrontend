@@ -97,58 +97,60 @@ export default function OrderPage(req){
             <Header/>
             <p className={successMessage ? "successMessage" : "offscreen"} aria-live="assertive">{successMessage}</p>
             <p className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
-            <div className="whole" style={{ position: "relative" }}>
-                <h1 style={{color:"white"}}>
-                    {data ? `užsakymas ${data.order.id}` : "ieškoma..." }
-                </h1>
-                <div className="infoPlate">
-                    <div className="label">Kasa:</div>
-                    <div className="data">{data ? findUser(data.checkouts, data.order.users_fk) : "ieškoma..."}</div>
-                    
-                    <div className="label">Kaina:</div>
-                    <div className="data">{data ? data.order.price : "ieškoma..."}€</div>
-                    
-                    <div className="label">Būsena:</div>
-                    <div className="data">{data ? data.order.state : "ieškoma..."}</div>
-                    
-                    <div className="label">Sukūrimo data:</div>
-                    <div className="data">{ dateTime1 ? `${dateTime1.getFullYear()}-${dateTime1.getMonth() + 1}-${dateTime1.getDate()} ${dateTime1.toLocaleTimeString()}` : "ieškoma..."}</div>
-                    
-                    <div className="label">Paskutinio keitimo data:</div>
-                    <div className="data">{dateTime2 ? `${dateTime2.getFullYear()}-${dateTime2.getMonth() + 1}-${dateTime2.getDate()} ${dateTime2.toLocaleTimeString()}` : "ieškoma..."}</div>
+            <h1 style={{color:"white"}}>
+                        {data ? `užsakymas ${data.order.id}` : "ieškoma..." }
+            </h1>
+            <div className="infoWrap">
+                <div className="whole" style={{ position: "relative" }}>
+                    <div className="infoPlate">
+                        <div className="label">Kasa:</div>
+                        <div className="data">{data ? findUser(data.checkouts, data.order.users_fk) : "ieškoma..."}</div>
+                        
+                        <div className="label">Kaina:</div>
+                        <div className="data">{data ? data.order.price : "ieškoma..."}€</div>
+                        
+                        <div className="label">Būsena:</div>
+                        <div className="data">{data ? data.order.state : "ieškoma..."}</div>
+                        
+                        <div className="label">Sukūrimo data:</div>
+                        <div className="data">{ dateTime1 ? `${dateTime1.getFullYear()}-${dateTime1.getMonth() + 1}-${dateTime1.getDate()} ${dateTime1.toLocaleTimeString()}` : "ieškoma..."}</div>
+                        
+                        <div className="label">Paskutinio keitimo data:</div>
+                        <div className="data">{dateTime2 ? `${dateTime2.getFullYear()}-${dateTime2.getMonth() + 1}-${dateTime2.getDate()} ${dateTime2.toLocaleTimeString()}` : "ieškoma..."}</div>
+                    </div>
+                    { data ? (
+                        <div>
+                            <p style={{color:"white", display:"inline-block"}} >Pakeisti užsakymo būseną</p>
+                            <select value={data.order.state} onChange={updateOrder}>
+                                <option value="Naujas">Naujas</option>
+                                <option value="Atšauktas">Atšauktas</option>
+                                <option value="Įvykdytas">Įvykdytas</option>
+                                <option value="Patvirtintas">Patvirtintas</option>
+                            </select>
+                        </div>
+                    ) :(
+                        <></>
+                    )}
                 </div>
-                { data ? (
-                    <div>
-                        <p style={{color:"white", marginLeft:70, display:"inline-block"}} >Pakeisti užsakymo būseną</p>
-                        <select value={data.order.state} onChange={updateOrder}>
-                            <option value="Naujas">Naujas</option>
-                            <option value="Atšauktas">Atšauktas</option>
-                            <option value="Įvykdytas">Įvykdytas</option>
-                            <option value="Patvirtintas">Patvirtintas</option>
-                        </select>
-                    </div>
-                ) :(
-                    <></>
-                )}
+            </div>
 
-                <div style={{ flexDirection: 'row', minHeight: 400 }}>
-                    <div className="itemList">
-                        {data && data.order.state !== "Atšauktas" ? (
-                            <>
-                                {data && data.order_products && data.order_products.length > 0 ? (
-                                    data.order_products.map((product, index) => (
-                                        <div key={index} style={{ display: "flex" }}>
-                                            <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1} reloading={fetchingOrder} state={data.order.state}/>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p style={{color:"white"}}>nebuvo rasta jokių prekių</p>
-                                )}
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                    </div>
+            <div style={{ flexDirection: 'row', minHeight: 400 }}>
+                <div className="itemList">
+                    {data && data.order.state !== "Atšauktas" ? (
+                        <>
+                            {data && data.order_products && data.order_products.length > 0 ? (
+                                data.order_products.map((product, index) => (
+                                    <div key={index} style={{ display: "flex" }}>
+                                        <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1} reloading={fetchingOrder} state={data.order.state}/>
+                                    </div>
+                                ))
+                            ) : (
+                                <p style={{color:"white"}}>nebuvo rasta jokių prekių</p>
+                            )}
+                        </>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
         </>

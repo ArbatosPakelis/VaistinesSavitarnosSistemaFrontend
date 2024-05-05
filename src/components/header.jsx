@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
 import usePrivateApi from "../hooks/usePrivateApi.js";
-import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 
 export default function Header() {
   const { auth, setAuth } = useAuth();
@@ -44,7 +43,7 @@ export default function Header() {
 
 
   return (
-    <div className="header" style={{minWidth:1910}}>
+    <div className="header" style={{minWidth:980}}>
       {auth?.role === 2 ? ( 
       <>
         <button className="headButton">

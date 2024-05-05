@@ -110,7 +110,7 @@ export default function LoginPage(){
                 <p> 
                     Nesate užsiregistravęs? <br/>
                     <span className="line">
-                        <a href="/register">Registruotis</a>
+                        <a className="formA" href="/register">Registruotis</a>
                     </span>
                 </p>
         </section>
