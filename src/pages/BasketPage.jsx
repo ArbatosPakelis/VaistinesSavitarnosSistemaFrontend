@@ -46,6 +46,7 @@ export default function BasketPage(req){
                 setErrorMessage('Nepavyko gauti krepšelio')
             }
         }
+        recountHeight();
     }
 
     async function utilityOrder() {
@@ -157,13 +158,21 @@ export default function BasketPage(req){
         }
     }
 
-    useEffect(() => {
-        // maintain correct size of item list as the list grows
+    async function recountHeight() {
         if (itemListRef.current && wholeRef.current) {
-            const itemListHeightWithExtra = itemListRef.current.clientHeight + 100;
+            let value = 50;
+            if(window.innerWidth < 1510){
+                value = 250
+            }
+            const itemListHeightWithExtra = itemListRef.current.clientHeight + value;
             setItemListHeight(itemListHeightWithExtra);
             wholeRef.current.style.height = `${itemListHeightWithExtra}px`;
         }
+    }
+
+    useEffect(() => {
+        // maintain correct size of item list as the list grows
+        recountHeight();
         if(success != undefined && success != null && success == "true" || success == "false")
         {
             completeOrder();
@@ -359,23 +368,23 @@ export default function BasketPage(req){
             <h1 style={{color:"white"}}>Krepšelis</h1>
             <p className={successMessage ? "successMessage" : "offscreen"} aria-live="assertive">{successMessage}</p>
             <p className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
-            <div className="whole" ref={wholeRef} style={{ position: "relative" }}>
+            <div ref={wholeRef} style={{ position: "relative" }}>
                 <div style={{ flexDirection: 'row', minHeight: 400 }}>
-                <div className="itemList" ref={itemListRef}>
-                    {data && data.order_products && data.order_products.length > 0 ? (
-                        data.order_products.map((product, index) => (
-                            <div key={index} style={{ display: "flex" }}>
-                                <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1} reloading={fetchingOrder} state="basket"/>
-                            </div>
-                        ))
-                    ) : (
-                        <p style={{color:"white", fontSize:22, border:"1px solid white", height:100, padding:10}}>nebuvo rasta jokių prekių</p>
-                    )}
-                </div>
-                <div className="price" style={{verticalAlign:"sub"}}>
-                    <p className="priceChild" >Kaina:</p>
-                    <p className="priceChild">{data ? data.order.price : 0}€</p>
-                </div>
+                    <div className="itemList" ref={itemListRef}>
+                        {data && data.order_products && data.order_products.length > 0 ? (
+                            data.order_products.map((product, index) => (
+                                <div key={index} style={{ display: "flex" }}>
+                                    <ProductRow name={"example"+index} card={data.product_cards[index]} product={product} mode={1} reloading={fetchingOrder} state="basket"/>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="price" style={{fontSize:22,height:100, marginTop:0, marginLeft:0, width:950}}>nebuvo rasta jokių prekių</p>
+                        )}
+                    </div>
+                    <div className="price" style={{verticalAlign:"sub"}}>
+                        <p className="priceChild" >Kaina:</p>
+                        <p className="priceChild">{data ? data.order.price : 0}€</p>
+                    </div>
                 </div>
                 <div className="bottomMeniu">
                     { auth.role === 2 ? (

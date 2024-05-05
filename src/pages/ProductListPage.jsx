@@ -139,17 +139,17 @@ export default function ProductListPage(req){
             <div>
                 <div style={{marginLeft:60}}>
                     <input id="filterInput" style={{minWidth:600, minHeight:60, marginLeft:10, fontSize:22}}></input>
-                    <button className="chosenButtons" style={{marginTop:0, marginBottom:0, marginLeft:20}} onClick={applyFilter}>Ieškoti</button>
+                    <button className="chosenButtons" style={{marginTop:0, marginBottom:0, marginLeft:20, width:120, display:"inline"}} onClick={applyFilter}>Ieškoti</button>
                 </div>
                 <div style={{marginLeft:60}}>
                     { auth.role === 2 ? (
-                        <button className="chosenButtons" onClick={calibration}>
+                        <button style={{width:130, display:"inline"}} className="chosenButtons" onClick={calibration}>
                             sulyginti
                         </button>
                     ): (
                         <></>
                     )}
-                    <button className="chosenButtons" onClick={() => setPrescription(!prescription)}>
+                    <button style={{width:200, display:"inline"}} className="chosenButtons" onClick={() => setPrescription(!prescription)}>
                         pridėti receptą
                     </button>
                     <button className="chosenButtons" onClick={() => setOther(!other)}>

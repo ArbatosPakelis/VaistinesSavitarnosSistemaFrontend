@@ -247,7 +247,7 @@ export default function RegisterPage(){
                     <p>
                         Jau užsiregistrave?<br />
                         <span className="line">
-                            <a href="/Login">Prisijungti</a>
+                            <a href="/Login" className="formA">Prisijungti</a>
                         </span>
                     </p>
                 </section>

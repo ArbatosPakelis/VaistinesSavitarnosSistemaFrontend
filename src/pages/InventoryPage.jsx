@@ -115,7 +115,7 @@ export default function InventoryPage(req){
             <Header />
             <div>
                 <div style={{marginLeft:60}}>
-                    <button className="chosenButtons" onClick={resupply}>
+                    <button style={{width:150, display:"inline"}}className="chosenButtons" onClick={resupply}>
                         užsakyti
                     </button>
                 </div>
@@ -128,7 +128,7 @@ export default function InventoryPage(req){
                         {data && data.remaining_goods && data.remaining_goods.length > 0 ? (
                             data.remaining_goods.map((product, index) => (
                                 <div key={index} style={{ display: "flex" }}>
-                                    <ProductRow name={"example"+index} card={data.product_cards[index]} product={product}  mode={3}  state="deficit" orderF={addOrUpdatePair} setS={setSuccessMessage} setE={setErrorMessage}/>
+                                    <ProductRow name={"example"+index} card={data.product_cards[index]} product={product}  mode={3}  state="deficit" orderF={addOrUpdatePair} setS={setSuccessMessage} setE={setErrorMessage} reloading={fetchingProducts}/>
                                 </div>
                             ))
                         ) : (

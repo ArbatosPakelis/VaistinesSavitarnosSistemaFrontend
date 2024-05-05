@@ -143,31 +143,37 @@ export default function ProductRow(req){
     }
 
     async function handleLimit(event) {
-        try{
-            const response = await PrivateApi.put(
-                `/api/v1/orders/updateLimit/${req.product.id}/${event.target.value}`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${auth.accessToken}`,
-                    },
+        if(event.target.value != null && event.target.value != undefined && event.target.value)
+        {
+            console.log(event.target.value)
+            try{
+                const response = await PrivateApi.put(
+                    `/api/v1/orders/updateLimit/${req.product.id}/${event.target.value}`,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${auth.accessToken}`,
+                        },
+                    }
+                );
+                console.log(response.status);
+                if (response?.status === 200) {
+                    req.reloading();
+                    req.setS('Riba sėkmingai atnaujinta');
+                    req.setE('');
                 }
-            );
-            if (response?.status === 200) {
-                req.reloading();
-                req.setS('Riba sėkmingai atnaujinta');
-                req.setE('');
-            }
-        } catch (err) {
-            req.setS('');
-            if (!err?.response) {
-                req.setE('No Server Response');
-            } else if (err.response?.status === 403) {
-                req.setE('Forbidden');
-            } else if (err.response?.status === 401) {
-                req.setE('Unauthorized');
-            } else {
-                req.setE('Comment creation Failed');
+            } catch (err) {
+                req.setS('');
+                console.log(err);
+                if (!err?.response) {
+                    req.setE('No Server Response');
+                } else if (err.response?.status === 403) {
+                    req.setE('Forbidden');
+                } else if (err.response?.status === 401) {
+                    req.setE('Unauthorized');
+                } else {
+                    req.setE('Comment creation Failed');
+                }
             }
         }
     }
@@ -256,7 +262,7 @@ export default function ProductRow(req){
                                         </button>
                                     ) : req.mode == 2 ?(
                                         <button className="chosenButtons" id={"chosen"+req.product.id} onClick={handleClick}>
-                                            <p>Pasirinkti</p>
+                                            <p style={{marginBottom:0}}>Pasirinkti</p>
                                         </button>
                                     ) : req.mode == 3 ?(
                                         <>
