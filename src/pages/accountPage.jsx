@@ -36,40 +36,6 @@ export default function AccountPage(req){
         }
     }
 
-    function findType(types, fk){
-        let result;
-        for(let k in types){
-            if(types[k].id == fk)
-            {
-                result = types[k];
-            }
-        }
-        if(result)
-        {
-            return result.type;
-        }
-        return `loading...`;
-    }
-
-    function findAdress(adresses, fk){
-        if(fk === null)
-        {
-            return "adreso nėra";
-        }
-        let result;
-        for(let k in adresses){
-            if(adresses[k].id == fk)
-            {
-                result = adresses[k];
-            }
-        }
-        if(result)
-        {
-            return result.street;
-        }
-        return `loading...`;
-    }
-
     useEffect(() => {
         if(auth.id > 0)
         {

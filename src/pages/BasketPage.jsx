@@ -219,7 +219,7 @@ export default function BasketPage(req){
             } else if (err.response?.status === 401) {
                 setErrorMessage('Unauthorized');
             } else {
-                setErrorMessage('Payment creation Failed');
+                setErrorMessage('Negalima atlikti apmokėjimo jeigu nėra prekių');
             }
             }
         }
@@ -353,7 +353,7 @@ export default function BasketPage(req){
             if (!err?.response) {
                 setErrorMessage('No Server Response');
             } else if (err.response?.status === 403) {
-                setErrorMessage('Forbidden');
+                setErrorMessage('Nuolaidos jau yra pridėtos');
             } else if (err.response?.status === 401) {
                 setErrorMessage('Unauthorized');
             } else {
