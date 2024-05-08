@@ -188,7 +188,7 @@ export default function BasketPage(req){
 
     async function handleTap() {
         const prescriptionCheck = await checkPrescriptions();
-        if(valid == true || prescriptionCheck.validity == true && age == true || prescriptionCheck.age  == true){
+        if(prescriptionCheck.validity == true && prescriptionCheck.age  == true){
             try{
                 const response = await PrivateApi.post(
                     `/api/v1/orders/payment/${auth.basketId}`,
@@ -224,11 +224,11 @@ export default function BasketPage(req){
             }
         }
         else{
-            if(valid == false || prescriptionCheck.validity == false)
+            if(prescriptionCheck.validity == false)
             {
                 setErrorMessage('Trūksta recepto vaistams');
             }
-            else if(age == false || prescriptionCheck.age  == false)
+            else if(prescriptionCheck.age  == false)
             {
                 setErrorMessage('Reikalingas patvirtinimas vaistų amžiui');
             }

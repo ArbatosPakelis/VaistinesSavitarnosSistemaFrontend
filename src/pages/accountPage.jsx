@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import usePrivateApi from "../hooks/usePrivateApi.js";
 import useAuth from "../hooks/useAuth.js";
 import Header from "../components/header.jsx";
-import UserRow from "../components/UserRow.js";
+import UserRow from "../components/UserRow.jsx";
 
 export default function AccountPage(req){
     const { auth} = useAuth();

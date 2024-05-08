@@ -160,8 +160,8 @@ export default function ProductListPage(req){
             <p className={successMessage ? "successMessage" : "offscreen"} aria-live="assertive">{successMessage}</p>
             <p className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
             { prescription == true ? (
-                <div style={{width:300, marginLeft:70, padding:10, border:"1px solid white", marginBottom:20}}>
-                    <form onSubmit={(e) => {
+                <div style={{width:300, marginLeft:70, marginBottom:20}}>
+                    <form className="otherForm" onSubmit={(e) => {
                         e.preventDefault();
                         const storedSessionData = localStorage.getItem('auth');
                         let jsonData = JSON.parse(storedSessionData);
@@ -201,8 +201,8 @@ export default function ProductListPage(req){
                 <></>
             )}
             { other == true ? (
-                <div style={{width:300, marginLeft:70, padding:10, border:"1px solid white", width:500}}>
-                    <form onSubmit={(e) => {
+                <div style={{width:300, marginLeft:70, width:500}}>
+                    <form className="otherForm" onSubmit={(e) => {
                         e.preventDefault();
                         const storedSessionData = localStorage.getItem('auth');
                         let jsonData = JSON.parse(storedSessionData);

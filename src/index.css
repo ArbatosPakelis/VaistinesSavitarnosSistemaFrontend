@@ -58,6 +58,20 @@ form {
   padding-bottom: 1rem;
 }
 
+.otherForm {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding-bottom: 1rem;
+  background-color: #0784b5;
+  color: white;
+  box-shadow: 10px 10px #3260aa;
+}
+
 a{
     color: white;
 }
