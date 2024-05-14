@@ -13,6 +13,15 @@ export default function InventoryPage(req){
     const errorRef = useRef();
     let idAmountPairs = [];
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(15);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentGoods = (data ? data.remaining_goods.slice(indexOfFirstItem, indexOfLastItem) : []);
+    const currentCards = (data ? data.product_cards.slice(indexOfFirstItem, indexOfLastItem) : []);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
     async function addOrUpdatePair(id, amount) {
         const existingPairIndex = idAmountPairs.findIndex(pair => pair.id === id);
     
@@ -126,15 +135,40 @@ export default function InventoryPage(req){
                 <div style={{ flexDirection: 'row', minHeight: 400 }}>
                     <div className="itemList">
                         {data && data.remaining_goods && data.remaining_goods.length > 0 ? (
-                            data.remaining_goods.map((product, index) => (
+                            currentGoods.map((product, index) => (
                                 <div key={index} style={{ display: "flex" }}>
-                                    <ProductRow name={"example"+index} card={data.product_cards[index]} product={product}  mode={3}  state="deficit" orderF={addOrUpdatePair} setS={setSuccessMessage} setE={setErrorMessage} reloading={fetchingProducts}/>
+                                <ProductRow
+                                    name={"example" + index}
+                                    card={currentCards[index]}
+                                    product={product}
+                                    mode={3}
+                                    reloading={fetchingProducts}
+                                    state="deficit"
+                                    orderF={addOrUpdatePair}
+                                    setS={setSuccessMessage}
+                                    setE={setErrorMessage}
+                                />
                                 </div>
                             ))
                         ) : (
                             <p style={{color:"white"}}>nebuvo rasta jokių prekių</p>
                         )}
                     </div>
+                </div>
+                <div className="pagination">
+                    <button className="pagingButton" style={{width:120}} onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                    Previous
+                    </button>
+                    <div className="pages">
+                        {Array.from({ length: Math.ceil(((data ? data.remaining_goods.length : 0)) / itemsPerPage) }, (_, index) => (
+                            <button key={index + 1} onClick={() => paginate(index + 1)} style={{ margin: "0 5px" }} className={currentPage === index + 1 ? "activePage" : "pagingButton"}>
+                            {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                    <button className="pagingButton" style={{width:120}} onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= ((data ? data.remaining_goods.length : 0))}>
+                    Next
+                    </button>
                 </div>
             </div>
         </>

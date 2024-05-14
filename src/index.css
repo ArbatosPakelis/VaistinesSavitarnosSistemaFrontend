@@ -481,3 +481,28 @@ select:hover{
   flex-direction: row;
   background-color: rgb(255, 0, 0);
 }
+
+.pagination{
+  margin-left: 250px;
+  margin-bottom: 20px;
+}
+
+.pagingButton{
+  vertical-align: top;
+  display: inline-block;
+  background-color: #0784b5;
+  color: white;
+  width: 50px;
+}
+
+.activePage {
+  background-color: #a1c1e2;
+  color: white;
+  width: 50px;
+}
+
+.pages{
+  margin-top: 15px;
+  display: inline-block;
+  max-width:300px;
+}

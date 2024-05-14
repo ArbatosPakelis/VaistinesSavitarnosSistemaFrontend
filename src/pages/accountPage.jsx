@@ -12,6 +12,14 @@ export default function AccountPage(req){
     const errorRef = useRef();
     const [data, setData] = useState("");
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(15);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentUsers = (data ? data.users.slice(indexOfFirstItem, indexOfLastItem) : []);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
     async function fetchingAccounts() {
         try {
             // http request
@@ -54,7 +62,7 @@ export default function AccountPage(req){
                 <div style={{ flexDirection: 'row', minHeight: 400 }}>
                     <div className="itemListContainer">
                         {data && data.users && data.users.length > 0 ? (
-                            data.users.map((user, index) => (
+                            currentUsers.map((user, index) => (
                                 <div key={index} className="userRowContainer">
                                     <UserRow name={"example"+index} user={user} type={user.user_types_fk} adress={user.adresses_fk}  setS={setSuccessMessage} setE={setErrorMessage} reloading={fetchingAccounts}/>
                                 </div>
@@ -63,6 +71,21 @@ export default function AccountPage(req){
                             <p style={{color:"white"}}>nebuvo rasta jokių prekių</p>
                         )}
                     </div>
+                </div>
+                <div className="pagination" style={{marginLeft:0, display:"flex", justifyContent:"center"}}>
+                    <button className="pagingButton" style={{width:120}} onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                    Previous
+                    </button>
+                    <div className="pages">
+                        {Array.from({ length: Math.ceil(((data ? data.users.length : 0)) / itemsPerPage) }, (_, index) => (
+                            <button key={index + 1} onClick={() => paginate(index + 1)} style={{ margin: "0 5px" }} className={currentPage === index + 1 ? "activePage" : "pagingButton"}>
+                            {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                    <button className="pagingButton" style={{width:120}} onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= ((data ? data.users.length : 0))}>
+                    Next
+                    </button>
                 </div>
             </div>
         </div>
