@@ -18,6 +18,15 @@ export default function ProductListPage(req){
     const [selfCode, setSelfCode] = useState("");
     const [otherCode, setOtherCode] = useState("");
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(15);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentGoods = filteredData ? filteredData.remaining_goods.slice(indexOfFirstItem, indexOfLastItem) : (data ? data.remaining_goods.slice(indexOfFirstItem, indexOfLastItem) : []);
+    const currentCards = filteredData ? filteredData.product_cards.slice(indexOfFirstItem, indexOfLastItem) : (data ? data.product_cards.slice(indexOfFirstItem, indexOfLastItem) : []);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
     async function applyFilter() {
         const inputElement = document.getElementById('filterInput');
         const currentFilter = inputElement.value.toLowerCase();
@@ -257,28 +266,40 @@ export default function ProductListPage(req){
             <div className="whole" style={{ position: "relative" }}>
                 <div style={{ flexDirection: 'row', minHeight: 400 }}>
                     <div className="itemList">
-                        {filter && filter !== "" ? (
-                            filteredData && filteredData.remaining_goods && filteredData.remaining_goods.length > 0 ? (
-                                filteredData.remaining_goods.map((product, index) => (
-                                    <div key={index} style={{ display: "flex" }}>
-                                        <ProductRow name={"example" + index} card={filteredData.product_cards[index]} product={product} mode={2} reloading={fetchingProducts} state="need"/>
-                                    </div>
-                                ))
-                            ) : (
-                                <p style={{ color: "white" }}>nebuvo rasta jokių prekių</p>
-                            )
+                        {data && data.remaining_goods && data.remaining_goods.length > 0 ? (
+                            currentGoods.map((product, index) => (
+                                <div key={index} style={{ display: "flex" }}>
+                                <ProductRow
+                                    name={"example" + index}
+                                    card={currentCards[index]}
+                                    product={product}
+                                    mode={2}
+                                    reloading={fetchingProducts}
+                                    state="need"
+                                    setS={setSuccessMessage}
+                                    setE={setErrorMessage}
+                                />
+                                </div>
+                            ))
                         ) : (
-                            data && data.remaining_goods && data.remaining_goods.length > 0 ? (
-                                data.remaining_goods.map((product, index) => (
-                                    <div key={index} style={{ display: "flex" }}>
-                                        <ProductRow name={"example" + index} card={data.product_cards[index]} product={product} mode={2} reloading={fetchingProducts} state="need" setS={setSuccessMessage} setE={setErrorMessage}/>
-                                    </div>
-                                ))
-                            ) : (
-                                <p style={{ color: "white" }}>nebuvo rasta jokių prekių</p>
-                            )
+                            <p style={{ color: "white" }}>nebuvo rasta jokių prekių</p>
                         )}
                     </div>
+                </div>
+                <div className="pagination">
+                    <button className="pagingButton" style={{width:120}} onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                    Previous
+                    </button>
+                    <div className="pages">
+                        {Array.from({ length: Math.ceil((filteredData ? filteredData.remaining_goods.length : (data ? data.remaining_goods.length : 0)) / itemsPerPage) }, (_, index) => (
+                            <button key={index + 1} onClick={() => paginate(index + 1)} style={{ margin: "0 5px" }} className={currentPage === index + 1 ? "activePage" : "pagingButton"}>
+                            {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                    <button className="pagingButton" style={{width:120}} onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= (filteredData ? filteredData.remaining_goods.length : (data ? data.remaining_goods.length : 0))}>
+                    Next
+                    </button>
                 </div>
             </div>
         </>

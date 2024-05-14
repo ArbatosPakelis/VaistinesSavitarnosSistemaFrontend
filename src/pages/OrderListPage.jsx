@@ -12,6 +12,14 @@ export default function OrderListPage(req){
     const [data, setData] = useState("");
     const errorRef = useRef();
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(15);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentOrders = (data ? data.orders.slice(indexOfFirstItem, indexOfLastItem) : []);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
     async function fetchingOrders() {
         try {
             // http request
@@ -62,7 +70,7 @@ export default function OrderListPage(req){
                 <div style={{ flexDirection: 'row', minHeight: 400 }}>
                     <div className="itemList">
                         {data && data.orders && data.orders.length > 0 ? (
-                            data.orders.map((order, index) => (
+                            currentOrders.map((order, index) => (
                                 <div key={index} style={{ display: "flex" }}>
                                     <OrderRow order={order} user={findUser(data.checkouts, order.users_fk)}/>
                                 </div>
@@ -71,6 +79,21 @@ export default function OrderListPage(req){
                             <p style={{color:"white"}}>nebuvo rasta užsakymų</p>
                         )}
                     </div>
+                </div>
+                <div className="pagination">
+                    <button className="pagingButton" style={{width:120}} onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                    Previous
+                    </button>
+                    <div className="pages">
+                        {Array.from({ length: Math.ceil(((data ? data.orders.length : 0)) / itemsPerPage) }, (_, index) => (
+                            <button key={index + 1} onClick={() => paginate(index + 1)} style={{ margin: "0 5px" }} className={currentPage === index + 1 ? "activePage" : "pagingButton"}>
+                            {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                    <button className="pagingButton" style={{width:120}} onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= ((data ? data.orders.length : 0))}>
+                    Next
+                    </button>
                 </div>
             </div>
         </>
